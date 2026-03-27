@@ -24,7 +24,7 @@ export default function FinalScreen({ onRestart }) {
             controls={false}
           ></video>
         </>
-      )}
+      )}<br/>
       <button className="quiz-btn" style={{ marginTop: '20px' }} onClick={onRestart}>
         Пройти опять
       </button>
