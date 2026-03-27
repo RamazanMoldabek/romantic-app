@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pacifico&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at center, #2e0916 0%, #110207 100%);
+  color: #fff;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Utilities */
+.romantic-title {
+  font-family: 'Pacifico', cursive;
+  color: #ff85a2;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Envelope Screen */
+.envelope-container {
+  cursor: pointer;
+  position: relative;
+  width: 300px;
+  height: 200px;
+  transition: transform 0.4s ease;
+}
+
+.envelope-container:hover {
+  transform: scale(1.05);
+}
+
+.envelope {
+  width: 100%;
+  height: 100%;
+  background: #ff4d79;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 100px solid #d4365d;
+  transform-origin: top;
+  transition: transform 0.6s ease;
+  z-index: 2;
+}
+
+.envelope-open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.heart-seal {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: #ffb3c6;
+  z-index: 3;
+  transition: opacity 0.3s;
+}
+
+.envelope-open .heart-seal {
+  opacity: 0;
+}
+
+/* Abdilda1 */
+.Abdilda1 {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255, 77, 121, 0.3);
+}
+
+.final-screen-video {
+  max-width: 420px;
+  width: 100%;
+  max-height: 320px;
+  height: auto;
+  margin: 20px auto 0;
+  display: block;
+  object-fit: contain;
+}
+
+/* Floating Hearts Animation */
+.floating-heart {
+  position: fixed;
+  bottom: -50px;
+  color: #ff4d79;
+  font-size: 24px;
+  pointer-events: none;
+  animation: floatUp 3s ease-in forwards;
+  z-index: 50;
+}
+
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Quiz Screen */
+.quiz-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  /* max-width: 400px; */
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  height: auto;
+}
+
+/* Контейнер для FlipCard */
+.flip-cards-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  height: auto;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* FlipCard grid - для правильной 3D трансформации */
+.flip-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+  justify-items: center;
+}
+
+
+
+.quiz-btn {
+  background: linear-gradient(135deg, #ff4d79, #e6004c);
+  border: none;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.quiz-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(230, 0, 76, 0.4);
+}
+
+.quiz-btn:active {
+  transform: translateY(0);
+}
+
+.attempts-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ffb3c6;
+}
+
+/* Video Modal */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.video-modal-content {
+  width: 250px;
+  max-width: 800px;
+  text-align: center;
+}
+
+/* Removed .video-modal-content video specific rule to allow .Abdilda1 to work */
+/* Final Scene */
+.scene-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: url('./assets/bg.png') center/cover no-repeat;
+}
+
+.scene-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #110207 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.character {
+  position: absolute;
+  bottom: 20%;
+  transition: left 1s ease-in-out;
+}
+
+.character img {
+  height: 150px;
+  /* Adjust height as needed */
+  width: auto;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.character.boy {
+  left: 10%;
+}
+
+.character.girl {
+  right: 10%;
+}
+
+.final-screen-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.final-message {
+  text-align: center;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 77, 121, 0.3);
+  max-width: 500px;
+  width: 90%;
+}
+
+.final-message h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.final-message p {
+  font-size: 20px;
+  color: #ffb3c6;
+}
+
+/* MOBILE ADAPTATION */
+@media (max-width: 768px) {
+  /* Envelope */
+  .envelope-container {
+    width: 200px;
+    height: 140px;
+  }
+
+  .envelope-flap {
+    border-left: 100px solid transparent !important;
+    border-right: 100px solid transparent !important;
+    border-top: 70px solid #d4365d !important;
+  }
+
+  /* Quiz & Flip Cards */
+  .quiz-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 25px;
+  }
+
+  .flip-cards-container {
+    width: 95%;
+    max-width: 500px;
+    padding: 25px;
+  }
+
+  .flip-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  /* Card size for tablet */
+  .card-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 14px;
+  }
+
+  /* Buttons */
+  .quiz-btn {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  /* Titles */
+  .romantic-title {
+    font-size: 24px;
+  }
+
+  /* Final message */
+  .final-message {
+    padding: 30px;
+  }
+
+  .final-message h1 {
+    font-size: 28px;
+  }
+
+  .final-message p {
+    font-size: 16px;
+  }
+}
+
+/* MOBILE (phones) */
+@media (max-width: 480px) {
+  body {
+    overflow-y: auto;
+  }
+
+  #root {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
+  /* Envelope */
+  .envelope-container {
+    width: 150px;
+    height: 100px;
+  }
+
+  .envelope-flap {
+    border-left: 75px solid transparent !important;
+    border-right: 75px solid transparent !important;
+    border-top: 50px solid #d4365d !important;
+  }
+
+  .heart-seal {
+    font-size: 28px !important;
+    top: 60px !important;
+  }
+
+  /* Quiz & Flip Cards */
+  .quiz-container {
+    width: 95%;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .flip-cards-container {
+    width: 95%;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  /* Single column for mobile */
+  .flip-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Card size for mobile */
+  .card-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 13px;
+  }
+
+  /* Buttons */
+  .quiz-btn {
+    padding: 12px 14px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .options-grid {
+    gap: 10px;
+  }
+
+  /* Titles */
+  .romantic-title {
+    font-size: 20px;
+  }
+
+  /* Text */
+  .attempts-text {
+    font-size: 12px;
+  }
+
+  /* Final message */
+  .final-message {
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 20px;
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .final-message h1 {
+    font-size: 24px;
+  }
+
+  .final-message p {
+    font-size: 14px;
+  }
+
+  /* Video Modal */
+  .video-modal-content {
+    width: 95% !important;
+    max-width: 100% !important;
+  }
+
+  /* Scene characters */
+  .character img {
+    height: 100px !important;
+  }
+
+  .character {
+    bottom: 15% !important;
+  }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 360px) {
+  .character img {
+    height: 80px !important;
+  }
+  
+  .character {
+    bottom: 15% !important;
+  }
+}

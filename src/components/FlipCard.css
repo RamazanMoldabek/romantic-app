@@ -1,0 +1,102 @@
+.card-container {
+    perspective: 1000px;
+    width: 200px;
+    height: 200px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 15px;
+    backface-visibility: hidden;
+}
+
+/* 🔥 FRONT — как quiz-container */
+.card-front {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+    color: #ffb3c6;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* 🔥 BACK — как кнопки/акценты */
+.card-back {
+    transform: rotateY(180deg);
+
+    background: linear-gradient(135deg, #ff4d79, #e6004c);
+    box-shadow: 0 10px 25px rgba(230, 0, 76, 0.4);
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* 💥 Hover эффект как у кнопок */
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card.flipped:hover {
+    transform: rotateY(180deg) scale(1.05);
+}
+
+/* MOBILE ADAPTATION */
+@media (max-width: 768px) {
+    .card-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .card-front {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        width: 140px;
+        height: 140px;
+    }
+
+    .card-front {
+        font-size: 12px;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+
+    .card.flipped:hover {
+        transform: rotateY(180deg);
+    }
+}
