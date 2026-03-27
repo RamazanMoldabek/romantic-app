@@ -13,75 +13,9 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [retryToken, setRetryToken] = useState(0);
-  const audioContextRef = useRef(null);
-  const musicIntervalRef = useRef(null);
   const audioRef = useRef(null);
 
-  const initBackgroundMusic = () => {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext || audioContextRef.current) return;
-
-    const context = new AudioContext();
-    const gain = context.createGain();
-    gain.gain.setValueAtTime(0.03, context.currentTime);
-    gain.connect(context.destination);
-
-    audioContextRef.current = { context, gain };
-  };
-
-  const playTone = (frequency, startTime) => {
-    if (!audioContextRef.current) return;
-    const { context, gain } = audioContextRef.current;
-    const oscillator = context.createOscillator();
-    oscillator.type = 'triangle';
-    oscillator.frequency.setValueAtTime(frequency, startTime);
-    oscillator.connect(gain);
-    oscillator.start(startTime);
-    oscillator.stop(startTime + 0.18);
-  };
-
-  const startBackgroundMusic = async () => {
-    initBackgroundMusic();
-    const audio = audioContextRef.current;
-    if (!audio) return;
-
-    if (audio.context.state === 'suspended') {
-      try {
-        await audio.context.resume();
-      } catch (_) {
-        // ignore resume failure
-      }
-    }
-
-    if (musicIntervalRef.current) return;
-
-    const melody = [440, 494, 523, 440, 440, 494, 523, 440, 523, 587, 659, 523, 523, 587, 659, 523];
-    const noteLength = 0.22;
-
-    const scheduleMelody = () => {
-      const now = audio.context.currentTime + 0.05;
-      melody.forEach((freq, idx) => playTone(freq, now + idx * noteLength));
-    };
-
-    scheduleMelody();
-    musicIntervalRef.current = window.setInterval(scheduleMelody, melody.length * noteLength * 1000);
-  };
-
-  useEffect(() => {
-    initBackgroundMusic();
-
-    return () => {
-      if (musicIntervalRef.current) {
-        clearInterval(musicIntervalRef.current);
-      }
-      if (audioContextRef.current) {
-        audioContextRef.current.context.close();
-      }
-    };
-  }, []);
-
   const handleEnvelopeOpen = () => {
-    startBackgroundMusic();
     setStep('cards');
     audioRef.current?.play().catch(() => {});
   };
