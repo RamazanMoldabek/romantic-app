@@ -499,6 +499,15 @@ body {
     max-width: 100% !important;
   }
 
+  .Abdilda1 {
+    max-height: 60vh;
+    object-fit: contain;
+  }
+
+  .final-screen-video {
+    max-height: 50vh;
+  }
+
   /* Scene characters */
   .character img {
     height: 100px !important;
