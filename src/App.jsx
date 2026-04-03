@@ -7,7 +7,7 @@ import Scene from './components/Scene';
 import FinalScreen from './components/FinalScreen';
 import ProposalScreen from './components/ProposalScreen';
 import { questions } from './data/questions';
-import FlipCard from './components/Flipcard.jsx';
+import FlipCard from './components/FlipCard.jsx';
 
 function App() {
   const [step, setStep] = useState('proposal');
@@ -91,7 +91,7 @@ function App() {
           <Scene progress={currentQuestionIndex + (step === 'final' ? 1 : 0)} totalSteps={questions.length} />
         </div>
       )}
-      
+
       {step === 'proposal' && <ProposalScreen onYes={handleProposalYes} />}
 
       {step === 'envelope' && <Envelope onOpen={handleEnvelopeOpen} />}
