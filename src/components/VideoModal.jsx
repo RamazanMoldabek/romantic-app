@@ -11,6 +11,7 @@ export default function VideoModal({ onClose, videoSrc, failMessage }) {
           className="Abdilda1"
           src={videoSrc}
           autoPlay
+          playsInline // Helps prevent taking over full-screen automatically on mobile OS
           controls={false}
           onEnded={onClose}
         ></video>

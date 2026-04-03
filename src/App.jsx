@@ -14,7 +14,11 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [retryToken, setRetryToken] = useState(0);
+  
+  // Ref for the audio element
   const audioRef = useRef(null);
+  // Ref to store previous audio time so we can restore it when modal closes
+  const audioTimeRef = useRef(0);
 
   const handleProposalYes = () => {
     setStep('envelope');
@@ -38,12 +42,28 @@ function App() {
   };
 
   const playVideo = () => {
+    if (audioRef.current) {
+      // Save current audio time
+      audioTimeRef.current = audioRef.current.currentTime;
+      // Pause background music
+      audioRef.current.pause();
+    }
     setShowVideo(true);
   };
 
   const closeVideo = () => {
     setShowVideo(false);
     setRetryToken(prev => prev + 1);
+    
+    // Attempt to resume audio properly
+    if (audioRef.current) {
+      // Restore previous audio time
+      audioRef.current.currentTime = audioTimeRef.current;
+      // Resume playback using audio.play() and handle autoplay errors using .catch()
+      audioRef.current.play().catch(error => {
+        console.warn("Background music autoplay was blocked by the browser:", error);
+      });
+    }
   };
 
   const handleRestart = () => {
