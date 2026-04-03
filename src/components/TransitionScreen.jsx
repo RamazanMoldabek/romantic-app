@@ -1,4 +1,5 @@
 import React from 'react';
+import kittyKiss from '../assets/kitty-kiss.gif';
 
 export default function TransitionScreen({ onNext }) {
   return (
@@ -6,6 +7,7 @@ export default function TransitionScreen({ onNext }) {
       <h1 className="romantic-title" style={{ fontSize: '2.5rem', marginBottom: '20px' }}>
         Ураа! 🎉 Мен сенің осылай жауап беретініңді білдім!
       </h1>
+      <img src={kittyKiss} alt="Kitty kissing" style={{ width: '250px', marginBottom: '20px' }} />
       <p style={{ fontSize: '1.2rem', marginBottom: '40px', maxWidth: '600px', lineHeight: '1.6', color: '#ff4d4d' }}>
         Енді саған арнаған кішкентай сұрақтарым бар. Дайынсың ба?
       </p>
