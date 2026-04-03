@@ -1,23 +1,28 @@
-import bgMusic from './assets/ayaulym.mp3';
+import bgMusic from './assets/Ernar.mp3';
 import React, { useEffect, useRef, useState } from 'react';
 import Envelope from './components/Envelope';
 import Quiz from './components/Quiz';
 import VideoModal from './components/VideoModal';
 import Scene from './components/Scene';
 import FinalScreen from './components/FinalScreen';
+import ProposalScreen from './components/ProposalScreen';
 import { questions } from './data/questions';
-import FlipCard from './components/FlipCard.jsx';
+import FlipCard from './components/Flipcard.jsx';
 
 function App() {
-  const [step, setStep] = useState('envelope');
+  const [step, setStep] = useState('proposal');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [retryToken, setRetryToken] = useState(0);
   const audioRef = useRef(null);
 
+  const handleProposalYes = () => {
+    setStep('envelope');
+  };
+
   const handleEnvelopeOpen = () => {
     setStep('cards');
-    audioRef.current?.play().catch(() => {});
+    audioRef.current?.play().catch(() => { });
   };
 
   const handleCorrectAnswer = (nextStep) => {
@@ -46,6 +51,11 @@ function App() {
     setCurrentQuestionIndex(0);
     setShowVideo(false);
     setRetryToken(0);
+    audioRef.current?.play().catch(() => { });
+  };
+
+  const handleStopMusic = () => {
+    audioRef.current?.pause();
   };
 
   return (
@@ -76,11 +86,13 @@ function App() {
           </button>
         </div>
       )}
-      {step !== 'envelope' && (
+      {step !== 'envelope' && step !== 'proposal' && (
         <div style={{ position: 'absolute', inset: 0, zIndex: -1 }}>
           <Scene progress={currentQuestionIndex + (step === 'final' ? 1 : 0)} totalSteps={questions.length} />
         </div>
       )}
+      
+      {step === 'proposal' && <ProposalScreen onYes={handleProposalYes} />}
 
       {step === 'envelope' && <Envelope onOpen={handleEnvelopeOpen} />}
 
@@ -94,7 +106,7 @@ function App() {
         />
       )}
 
-      {step === 'final' && <FinalScreen onRestart={handleRestart} />}
+      {step === 'final' && <FinalScreen onRestart={handleRestart} onStopMusic={handleStopMusic} />}
 
       {showVideo && <VideoModal onClose={closeVideo} videoSrc={questions[currentQuestionIndex].video} failMessage={questions[currentQuestionIndex].failMessage} />}
     </>

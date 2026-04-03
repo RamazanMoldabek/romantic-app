@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import nevza from '../assets/nevza1.mp4';
+import nevza from '../assets/love-and-pills.mp4';
 
-export default function FinalScreen({ onRestart }) {
+export default function FinalScreen({ onRestart, onStopMusic }) {
   const [showVideo, setShowVideo] = useState(false);
+
+  const handleShowVideo = () => {
+    setShowVideo(true);
+    if (onStopMusic) onStopMusic();
+  };
 
   return (
     <div className="final-message fade-in">
       {!showVideo ? (
         <>
-          <h1 className="romantic-title">Есіңде екен ғой🥰😍</h1>
-          <p style={{ marginTop: '10px' }}>Я никогда не забывал и не забуду все детали</p>
-          <button className="quiz-btn" style={{ marginTop: '30px' }} onClick={() => setShowVideo(true)}>
-            Еще кое-что 💖
+          <h1 className="romantic-title">Қозы көрпеш - Баян сұлу мейрамыңмен жаным❤️</h1>
+          <p style={{ marginTop: '10px' }}>Сені қана уақыт сүйіп өтсем, сонша күн бақыт кешем</p>
+          <button className="quiz-btn" style={{ marginTop: '30px' }} onClick={handleShowVideo}>
+            Тағы да💖
           </button>
         </>
       ) : (
@@ -24,9 +29,9 @@ export default function FinalScreen({ onRestart }) {
             controls={false}
           ></video>
         </>
-      )}<br/>
+      )}<br />
       <button className="quiz-btn" style={{ marginTop: '20px' }} onClick={onRestart}>
-        Пройти опять
+        Тағы да өтейінші
       </button>
     </div>
   );
