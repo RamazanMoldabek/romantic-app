@@ -6,6 +6,7 @@ import VideoModal from './components/VideoModal';
 import Scene from './components/Scene';
 import FinalScreen from './components/FinalScreen';
 import ProposalScreen from './components/ProposalScreen';
+import TransitionScreen from './components/TransitionScreen';
 import { questions } from './data/questions';
 import FlipCard from './components/FlipCard.jsx';
 
@@ -14,13 +15,17 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [retryToken, setRetryToken] = useState(0);
-  
+
   // Ref for the audio element
   const audioRef = useRef(null);
   // Ref to store previous audio time so we can restore it when modal closes
   const audioTimeRef = useRef(0);
 
   const handleProposalYes = () => {
+    setStep('transition');
+  };
+
+  const handleTransitionNext = () => {
     setStep('envelope');
   };
 
@@ -54,7 +59,7 @@ function App() {
   const closeVideo = () => {
     setShowVideo(false);
     setRetryToken(prev => prev + 1);
-    
+
     // Attempt to resume audio properly
     if (audioRef.current) {
       // Restore previous audio time
@@ -106,13 +111,15 @@ function App() {
           </button>
         </div>
       )}
-      {step !== 'envelope' && step !== 'proposal' && (
+      {step !== 'envelope' && step !== 'proposal' && step !== 'transition' && (
         <div style={{ position: 'absolute', inset: 0, zIndex: -1 }}>
           <Scene progress={currentQuestionIndex + (step === 'final' ? 1 : 0)} totalSteps={questions.length} />
         </div>
       )}
 
       {step === 'proposal' && <ProposalScreen onYes={handleProposalYes} />}
+
+      {step === 'transition' && <TransitionScreen onNext={handleTransitionNext} />}
 
       {step === 'envelope' && <Envelope onOpen={handleEnvelopeOpen} />}
 
